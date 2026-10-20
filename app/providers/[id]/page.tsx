@@ -118,7 +118,6 @@ export default async function ProviderPage({ params }: { params: Promise<{ id: s
             </p>
             <p className="mb-5 mt-1 text-xs text-slate-400">The final price is agreed with the professional.</p>
             <CallbackForm name={p.name} />
-            <p className="mt-4 text-xs text-slate-400">Sample profile for demo purposes.</p>
           </aside>
         </div>
 
