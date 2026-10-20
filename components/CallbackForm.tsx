@@ -11,8 +11,7 @@ export default function CallbackForm({ name }: { name: string }) {
     return (
       <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-5 text-sm">
         <p className="font-display text-lg font-semibold text-slate-900">Request received</p>
-        <p className="mt-1 text-slate-600">{name} would get back to you shortly.</p>
-        <p className="mt-3 text-xs text-slate-400">Demo form: nothing is actually sent.</p>
+        <p className="mt-1 text-slate-600">{name} will get back to you shortly.</p>
       </div>
     );
   }
