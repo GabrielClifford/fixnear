@@ -24,14 +24,22 @@ export default function ProviderCard({ p }: { p: Provider }) {
       href={`/providers/${p.id}`}
       className="group block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
     >
-      <div className={`relative flex h-28 items-center justify-center bg-gradient-to-br ${tone}`}>
-        <span className="font-display text-3xl font-bold">{initials}</span>
-        <span className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-white px-2 py-1 text-xs font-semibold text-slate-800 shadow">
+      <div className="relative h-40 overflow-hidden">
+        {/* Bottom layer: initials show if there is no photo */}
+        <div className={`absolute inset-0 flex items-center justify-center bg-gradient-to-br ${tone}`}>
+          <span className="font-display text-3xl font-bold">{initials}</span>
+        </div>
+        {/* Photo layer: public/providers/<id>.jpg */}
+        <div
+          className="absolute inset-0 bg-cover bg-top"
+          style={{ backgroundImage: `url(/providers/${p.id}.jpg)` }}
+        />
+        <span className="absolute right-3 top-3 z-10 flex items-center gap-1 rounded-full bg-white px-2 py-1 text-xs font-semibold text-slate-800 shadow">
           <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" /> {p.rating.toFixed(1)}
           <span className="font-normal text-slate-400">({p.reviews})</span>
         </span>
         {p.verified && (
-          <span className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-emerald-700 px-2 py-1 text-[11px] font-semibold text-white">
+          <span className="absolute left-3 top-3 z-10 flex items-center gap-1 rounded-full bg-emerald-700 px-2 py-1 text-[11px] font-semibold text-white">
             <BadgeCheck className="h-3.5 w-3.5" /> Verified
           </span>
         )}
