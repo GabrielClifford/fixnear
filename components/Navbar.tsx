@@ -42,12 +42,12 @@ export default function Navbar() {
           <span className="hidden items-center gap-1.5 text-sm text-slate-700 lg:flex">
             <MapPin className="h-4 w-4 text-emerald-700" /> Port Harcourt <ChevronDown className="h-4 w-4 text-slate-400" />
           </span>
-          <a href="#" className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-800 transition hover:bg-slate-50">
+          <Link href="/login" className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-800 transition hover:bg-slate-50">
             Log In
-          </a>
-          <a href="#" className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800">
+          </Link>
+          <Link href="/signup" className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800">
             Sign Up
-          </a>
+          </Link>
         </div>
 
         <button onClick={() => setOpen(!open)} className="md:hidden" aria-label="Menu">
@@ -68,8 +68,12 @@ export default function Navbar() {
             </Link>
           ))}
           <div className="mt-4 grid grid-cols-2 gap-3">
-            <a href="#" className="rounded-lg border border-slate-300 py-2.5 text-center text-sm font-medium">Log In</a>
-            <a href="#" className="rounded-lg bg-emerald-700 py-2.5 text-center text-sm font-semibold text-white">Sign Up</a>
+            <Link href="/login" onClick={() => setOpen(false)} className="rounded-lg border border-slate-300 py-2.5 text-center text-sm font-medium">
+              Log In
+            </Link>
+            <Link href="/signup" onClick={() => setOpen(false)} className="rounded-lg bg-emerald-700 py-2.5 text-center text-sm font-semibold text-white">
+              Sign Up
+            </Link>
           </div>
         </nav>
       )}
