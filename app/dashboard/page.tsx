@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import type { User } from '@supabase/supabase-js';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import BusinessForm from '@/components/BusinessForm';
 import { createClient } from '@/lib/supabase/client';
 
 export default function DashboardPage() {
@@ -26,7 +27,7 @@ export default function DashboardPage() {
     router.refresh();
   }
 
-  const meta = (user?.user_metadata ?? {}) as { full_name?: string; role?: string; trade?: string };
+  const meta = (user?.user_metadata ?? {}) as { full_name?: string; role?: string };
 
   return (
     <>
@@ -39,21 +40,17 @@ export default function DashboardPage() {
             <h1 className="font-display text-3xl font-bold text-slate-900">
               Welcome{meta.full_name ? `, ${meta.full_name}` : ''}
             </h1>
-            <p className="mt-2 text-slate-600">
-              Signed in as {user.email}
-              {meta.role === 'artisan' && meta.trade ? ` · ${meta.trade}` : ''}
-            </p>
+            <p className="mb-8 mt-2 text-slate-600">Signed in as {user.email}</p>
 
-            <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h2 className="font-display text-lg font-semibold text-slate-900">
-                {meta.role === 'artisan' ? 'Your business website' : 'Your account'}
-              </h2>
-              <p className="mt-2 text-sm text-slate-600">
-                {meta.role === 'artisan'
-                  ? 'Next step: add your business details and your website will be created here. This part is coming soon.'
-                  : 'Your account is ready. You can browse professionals and contact them from their profiles.'}
-              </p>
-            </div>
+            {meta.role === 'artisan' ? (
+              <BusinessForm user={user} />
+            ) : (
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <p className="text-sm text-slate-600">
+                  Your account is ready. You can browse professionals and contact them from their profiles.
+                </p>
+              </div>
+            )}
 
             <button
               onClick={logout}

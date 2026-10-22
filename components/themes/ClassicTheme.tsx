@@ -4,9 +4,9 @@ import { ThemeProps } from '@/data/sites';
 
 export default function ClassicTheme({ p, s }: ThemeProps) {
   const reasons = [
-    { icon: Briefcase, title: `${p.years} years experience`, text: `Trusted ${p.trade.toLowerCase()} work in ${p.city}.` },
+   { icon: Briefcase, title: p.years ? `${p.years} years experience` : 'Local professional', text: `Trusted ${p.trade.toLowerCase()} work in ${p.city}.` },
     { icon: BadgeCheck, title: p.verified ? 'Verified professional' : 'Profile in review', text: p.verified ? 'Identity and skills checked.' : 'Verification is not complete yet.' },
-    { icon: Wallet, title: `From ₦${p.priceFrom.toLocaleString('en-NG')}`, text: 'Final price agreed before the job starts.' },
+   { icon: Wallet, title: p.priceFrom ? `From ₦${p.priceFrom.toLocaleString('en-NG')}` : 'Fair pricing', text: 'Final price agreed before the job starts.' },
   ];
 
   return (

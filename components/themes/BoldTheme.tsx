@@ -4,11 +4,11 @@ import { ThemeProps } from '@/data/sites';
 
 export default function BoldTheme({ p, s }: ThemeProps) {
   const stats = [
-    { n: p.rating.toFixed(1), label: 'Rating' },
-    { n: `${p.years}`, label: 'Years' },
-    { n: p.verified ? 'Yes' : 'Pending', label: 'Verified' },
-    { n: `₦${p.priceFrom.toLocaleString('en-NG')}`, label: 'From' },
-  ];
+  { n: p.reviews ? p.rating.toFixed(1) : 'New', label: 'Rating' },
+  { n: p.years ? `${p.years}` : '-', label: 'Years' },
+  { n: p.verified ? 'Yes' : 'Pending', label: 'Verified' },
+  { n: p.priceFrom ? `₦${p.priceFrom.toLocaleString('en-NG')}` : 'Quote', label: 'From' },
+];
 
   return (
     <div className="bg-slate-950 text-white">
