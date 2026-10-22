@@ -1,8 +1,9 @@
-
 'use client';
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
 import { trades } from '@/data/providers';
 
 const field =
@@ -10,22 +11,74 @@ const field =
 
 export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
   const isSignup = mode === 'signup';
+  const router = useRouter();
   const [role, setRole] = useState<'customer' | 'artisan'>('customer');
-  const [done, setDone] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [checkEmail, setCheckEmail] = useState(false);
 
-  if (done) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    const form = new FormData(e.currentTarget);
+    const email = String(form.get('email') ?? '').trim();
+    const password = String(form.get('password') ?? '');
+    const supabase = createClient();
+
+    if (isSignup) {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/dashboard`,
+          data: {
+            full_name: String(form.get('name') ?? '').trim(),
+            phone: String(form.get('phone') ?? '').trim(),
+            role,
+            trade: role === 'artisan' ? String(form.get('trade') ?? '') : '',
+          },
+        },
+      });
+      setLoading(false);
+
+      if (error) {
+        setError(error.message);
+        return;
+      }
+      // Supabase returns an empty identities list when the email is already registered
+      if (data.user && data.user.identities?.length === 0) {
+        setError('An account with this email already exists. Try logging in.');
+        return;
+      }
+      if (data.session) {
+        router.push('/dashboard');
+        router.refresh();
+        return;
+      }
+      setCheckEmail(true);
+      return;
+    }
+
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    setLoading(false);
+    if (error) {
+      setError(error.message);
+      return;
+    }
+    router.push('/dashboard');
+    router.refresh();
+  }
+
+  if (checkEmail) {
     return (
       <div className="mx-auto w-full max-w-md rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-sm">
-        <p className="font-display text-2xl font-bold text-slate-900">Thanks for your interest</p>
+        <p className="font-display text-2xl font-bold text-slate-900">Check your email</p>
         <p className="mt-3 text-sm leading-relaxed text-slate-600">
-          Accounts are not active yet in this demo. Nothing you typed was saved or sent.
+          We sent a confirmation link to your email address. Click it to finish creating your account.
+          If you don&apos;t see it, check your spam folder.
         </p>
-        <Link
-          href="/"
-          className="mt-6 inline-block rounded-xl bg-emerald-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-emerald-800"
-        >
-          Back to home
-        </Link>
       </div>
     );
   }
@@ -56,13 +109,7 @@ export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
         </div>
       )}
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          setDone(true);
-        }}
-        className="mt-6 space-y-3"
-      >
+      <form onSubmit={handleSubmit} className="mt-6 space-y-3">
         {isSignup && <input required name="name" placeholder="Full name" className={field} />}
         <input required type="email" name="email" placeholder="Email address" className={field} />
         {isSignup && <input required name="phone" placeholder="Phone number" className={field} />}
@@ -72,13 +119,23 @@ export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
             {trades.map((t) => <option key={t}>{t}</option>)}
           </select>
         )}
-        <input required type="password" name="password" placeholder="Password" className={field} />
+        <input
+          required
+          type="password"
+          name="password"
+          minLength={8}
+          placeholder="Password (at least 8 characters)"
+          className={field}
+        />
+
+        {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
 
         <button
           type="submit"
-          className="w-full rounded-xl bg-emerald-700 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-emerald-800"
+          disabled={loading}
+          className="w-full rounded-xl bg-emerald-700 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-emerald-800 disabled:opacity-60"
         >
-          {isSignup ? 'Create account' : 'Log in'}
+          {loading ? 'Please wait...' : isSignup ? 'Create account' : 'Log in'}
         </button>
       </form>
 
