@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import Link from 'next/link';
 import {
   Search, MapPin, Zap, Droplets, Fuel, Smartphone, Scissors, Footprints, PaintRoller,
@@ -5,8 +6,8 @@ import {
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import ProviderCard from '@/components/ProviderCard';
-import { providers, trades, areas } from '@/data/providers';
+import FeaturedProfessionals from '@/components/FeaturedProfessionals';
+import { trades, areas } from '@/data/providers';
 
 const services: { label: string; trade?: string; icon: React.ElementType; tone: string }[] = [
   { label: 'Electrical Repairs', trade: 'Electrician', icon: Zap, tone: 'bg-violet-100 text-violet-600' },
@@ -34,7 +35,6 @@ const steps = [
 ];
 
 const popular = ['Plumber', 'Electrician', 'Generator Repair', 'Phone Repair'];
-const featured = [...providers].sort((a, b) => b.rating - a.rating).slice(0, 4);
 
 export default function Home() {
   return (
@@ -208,9 +208,9 @@ export default function Home() {
             View All Professionals <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
-        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {featured.map((p) => <ProviderCard key={p.id} p={p} />)}
-        </div>
+        <Suspense fallback={<div className="mt-6 py-16 text-center text-sm text-slate-400">Loading professionals...</div>}>
+          <FeaturedProfessionals />
+        </Suspense>
       </section>
 
       {/* CTA */}

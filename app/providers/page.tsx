@@ -4,7 +4,8 @@ import { Search } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ProviderCard from '@/components/ProviderCard';
-import { providers, trades, areas } from '@/data/providers';
+import { trades, areas } from '@/data/providers';
+import { getDirectory } from '@/lib/directory';
 
 type Params = { q?: string; trade?: string; area?: string; sort?: string };
 
@@ -14,6 +15,7 @@ const field =
 async function Results({ searchParams }: { searchParams: Promise<Params> }) {
   const { q = '', trade = '', area = '', sort = '' } = await searchParams;
   const term = q.trim().toLowerCase();
+    const providers = await getDirectory();
 
   let results = providers.filter((p) => {
     if (trade && p.trade !== trade) return false;
@@ -28,7 +30,7 @@ async function Results({ searchParams }: { searchParams: Promise<Params> }) {
   if (sort === 'price-low') results = [...results].sort((a, b) => a.priceFrom - b.priceFrom);
   else if (sort === 'price-high') results = [...results].sort((a, b) => b.priceFrom - a.priceFrom);
   else if (sort === 'experience') results = [...results].sort((a, b) => b.years - a.years);
-  else results = [...results].sort((a, b) => b.rating - a.rating);
+    else results = [...results].sort((a, b) => Number(!!b.real) - Number(!!a.real) || b.rating - a.rating);
 
   const filtered = Boolean(q || trade || area || sort);
 

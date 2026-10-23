@@ -10,6 +10,8 @@ export type Provider = {
   verified: boolean;
   priceFrom: number; // naira
   about: string;
+    real?: boolean;
+  photoUrl?: string | null;
 };
 
 export const trades = [
