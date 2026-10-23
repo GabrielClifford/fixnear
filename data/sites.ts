@@ -7,7 +7,9 @@ export type SiteSettings = {
   services: string[];
   serviceAreas: string[];
   theme: ThemeName;
-  phone?: string; // leave empty in the demo so no fake number is shown
+  phone?: string;
+  photoUrl?: string;
+  gallery?: string[];
 };
 
 export type ThemeProps = { p: Provider; s: SiteSettings };

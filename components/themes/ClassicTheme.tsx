@@ -3,10 +3,11 @@ import CallbackForm from '@/components/CallbackForm';
 import { ThemeProps } from '@/data/sites';
 
 export default function ClassicTheme({ p, s }: ThemeProps) {
+  const photo = s.photoUrl || `/providers/${p.id}.jpg`;
   const reasons = [
-   { icon: Briefcase, title: p.years ? `${p.years} years experience` : 'Local professional', text: `Trusted ${p.trade.toLowerCase()} work in ${p.city}.` },
+    { icon: Briefcase, title: p.years ? `${p.years} years experience` : 'Local professional', text: `Trusted ${p.trade.toLowerCase()} work in ${p.city}.` },
     { icon: BadgeCheck, title: p.verified ? 'Verified professional' : 'Profile in review', text: p.verified ? 'Identity and skills checked.' : 'Verification is not complete yet.' },
-   { icon: Wallet, title: p.priceFrom ? `From ₦${p.priceFrom.toLocaleString('en-NG')}` : 'Fair pricing', text: 'Final price agreed before the job starts.' },
+    { icon: Wallet, title: p.priceFrom ? `From ₦${p.priceFrom.toLocaleString('en-NG')}` : 'Fair pricing', text: 'Final price agreed before the job starts.' },
   ];
 
   return (
@@ -38,7 +39,7 @@ export default function ClassicTheme({ p, s }: ThemeProps) {
             </a>
           </div>
           <div className="relative aspect-[3/2] overflow-hidden rounded-3xl bg-emerald-200">
-            <div className="absolute inset-0 bg-cover bg-top" style={{ backgroundImage: `url(/providers/${p.id}.jpg)` }} />
+            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${photo})` }} />
           </div>
         </div>
       </section>
@@ -56,6 +57,19 @@ export default function ClassicTheme({ p, s }: ThemeProps) {
           ))}
         </div>
       </section>
+
+      {s.gallery && s.gallery.length > 0 && (
+        <section className="mx-auto max-w-5xl px-5 pb-14">
+          <h2 className="font-display text-2xl font-bold">Our work</h2>
+          <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3">
+            {s.gallery.map((src) => (
+              <div key={src} className="aspect-square overflow-hidden rounded-2xl bg-slate-100">
+                <img src={src} alt={`${p.name} project`} loading="lazy" className="h-full w-full object-cover" />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section id="about" className="bg-slate-50">
         <div className="mx-auto max-w-5xl px-5 py-14">

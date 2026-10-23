@@ -3,12 +3,13 @@ import CallbackForm from '@/components/CallbackForm';
 import { ThemeProps } from '@/data/sites';
 
 export default function BoldTheme({ p, s }: ThemeProps) {
+  const photo = s.photoUrl || `/providers/${p.id}.jpg`;
   const stats = [
-  { n: p.reviews ? p.rating.toFixed(1) : 'New', label: 'Rating' },
-  { n: p.years ? `${p.years}` : '-', label: 'Years' },
-  { n: p.verified ? 'Yes' : 'Pending', label: 'Verified' },
-  { n: p.priceFrom ? `₦${p.priceFrom.toLocaleString('en-NG')}` : 'Quote', label: 'From' },
-];
+    { n: p.reviews ? p.rating.toFixed(1) : 'New', label: 'Rating' },
+    { n: p.years ? `${p.years}` : '-', label: 'Years' },
+    { n: p.verified ? 'Yes' : 'Pending', label: 'Verified' },
+    { n: p.priceFrom ? `₦${p.priceFrom.toLocaleString('en-NG')}` : 'Quote', label: 'From' },
+  ];
 
   return (
     <div className="bg-slate-950 text-white">
@@ -22,7 +23,7 @@ export default function BoldTheme({ p, s }: ThemeProps) {
       </header>
 
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-top opacity-40" style={{ backgroundImage: `url(/providers/${p.id}.jpg)` }} />
+        <div className="absolute inset-0 bg-cover bg-center opacity-40" style={{ backgroundImage: `url(${photo})` }} />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-950/30" />
         <div className="relative mx-auto max-w-5xl px-5 py-24 md:py-32">
           <p className="text-xs font-bold uppercase tracking-[0.3em] text-amber-400">
@@ -58,6 +59,19 @@ export default function BoldTheme({ p, s }: ThemeProps) {
           ))}
         </div>
       </section>
+
+      {s.gallery && s.gallery.length > 0 && (
+        <section className="mx-auto max-w-5xl px-5 pb-16">
+          <h2 className="font-display text-3xl font-bold uppercase">Our work</h2>
+          <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3">
+            {s.gallery.map((src) => (
+              <div key={src} className="aspect-square overflow-hidden rounded-2xl bg-slate-900">
+                <img src={src} alt={`${p.name} project`} loading="lazy" className="h-full w-full object-cover" />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="mx-auto max-w-5xl px-5 pb-16">
         <h2 className="font-display text-3xl font-bold uppercase">Areas served</h2>

@@ -33,12 +33,14 @@ async function Site({ params }: { params: Promise<{ slug: string }> }) {
     priceFrom: b.price_from ?? 0,
     about: b.about ?? '',
   };
-  const s: SiteSettings = {
+    const s: SiteSettings = {
     tagline: b.tagline ?? '',
     services: b.services ?? [],
     serviceAreas: b.service_areas ?? [],
     theme: b.theme === 'bold' ? 'bold' : 'classic',
     phone: b.phone ?? undefined,
+    photoUrl: b.photo_url ?? undefined,
+    gallery: b.gallery ?? [],
   };
 
   return <ArtisanSite p={p} s={s} sample={false} />;

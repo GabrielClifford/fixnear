@@ -21,11 +21,15 @@ type Business = {
   price_from: number | null;
   theme: string;
   published: boolean;
+  photo_url: string | null;
+  gallery: string[];
 };
 
 const field =
   'w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-emerald-600';
 const label = 'mb-1.5 block text-sm font-medium text-slate-700';
+const MAX_GALLERY = 6;
+const BUCKET = 'business-photos';
 
 function makeSlug(name: string) {
   const base =
@@ -33,11 +37,29 @@ function makeSlug(name: string) {
   return `${base}-${Math.random().toString(36).slice(2, 6)}`;
 }
 
+// Shrinks a photo in the browser before upload to save data and storage
+async function resizeImage(file: File, maxSize = 1600): Promise<Blob> {
+  const bitmap = await createImageBitmap(file);
+  const scale = Math.min(1, maxSize / Math.max(bitmap.width, bitmap.height));
+  const canvas = document.createElement('canvas');
+  canvas.width = Math.round(bitmap.width * scale);
+  canvas.height = Math.round(bitmap.height * scale);
+  canvas.getContext('2d')!.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  return new Promise((resolve, reject) =>
+    canvas.toBlob(
+      (b) => (b ? resolve(b) : reject(new Error('Could not process this image.'))),
+      'image/jpeg',
+      0.85
+    )
+  );
+}
+
 export default function BusinessForm({ user }: { user: User }) {
   const meta = (user.user_metadata ?? {}) as { trade?: string; phone?: string };
   const [business, setBusiness] = useState<Business | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
 
@@ -101,7 +123,79 @@ export default function BusinessForm({ user }: { user: User }) {
     setMessage('Saved.');
   }
 
+  async function uploadPhoto(file: File, kind: 'profile' | 'gallery') {
+    if (!business) return;
+    setError('');
+    setMessage('');
+
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+      setError('Please choose a JPG, PNG or WebP image.');
+      return;
+    }
+    if (kind === 'gallery' && business.gallery.length >= MAX_GALLERY) {
+      setError(`You can add up to ${MAX_GALLERY} project photos. Remove one first.`);
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const blob = await resizeImage(file);
+      const supabase = createClient();
+      const path = `${user.id}/${business.id}/${kind}-${Date.now()}.jpg`;
+      const { error: upErr } = await supabase.storage
+        .from(BUCKET)
+        .upload(path, blob, { contentType: 'image/jpeg', cacheControl: '31536000' });
+      if (upErr) throw upErr;
+
+      const url = supabase.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
+      const changes = kind === 'profile' ? { photo_url: url } : { gallery: [...business.gallery, url] };
+      const { data, error: dbErr } = await supabase
+        .from('businesses')
+        .update(changes)
+        .eq('id', business.id)
+        .select()
+        .single();
+      if (dbErr) throw dbErr;
+      setBusiness(data as Business);
+    } catch (err) {
+      setError((err as { message?: string }).message ?? 'Upload failed. Please try again.');
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  async function removePhoto(url: string, kind: 'profile' | 'gallery') {
+    if (!business) return;
+    setError('');
+    setUploading(true);
+    try {
+      const supabase = createClient();
+      const path = url.split(`/${BUCKET}/`)[1];
+      if (path) await supabase.storage.from(BUCKET).remove([path]);
+
+      const changes =
+        kind === 'profile'
+          ? { photo_url: null }
+          : { gallery: business.gallery.filter((g) => g !== url) };
+      const { data, error: dbErr } = await supabase
+        .from('businesses')
+        .update(changes)
+        .eq('id', business.id)
+        .select()
+        .single();
+      if (dbErr) throw dbErr;
+      setBusiness(data as Business);
+    } catch (err) {
+      setError((err as { message?: string }).message ?? 'Could not remove the photo.');
+    } finally {
+      setUploading(false);
+    }
+  }
+
   if (loading) return <p className="text-sm text-slate-400">Loading your business...</p>;
+
+  const pickButton =
+    'cursor-pointer rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50';
 
   return (
     <form
@@ -185,10 +279,104 @@ export default function BusinessForm({ user }: { user: User }) {
         </select>
       </div>
 
+      <div>
+        <label className={label}>Photos</label>
+        {!business ? (
+          <p className="rounded-xl bg-slate-50 p-4 text-sm text-slate-500">
+            Save your business details first, then you can add photos.
+          </p>
+        ) : (
+          <div className="space-y-6 rounded-xl border border-slate-200 p-4">
+            <div>
+              <p className="mb-2 text-sm font-medium text-slate-700">Main photo (shown at the top of your website)</p>
+              <div className="flex flex-wrap items-center gap-4">
+                {business.photo_url ? (
+                  <img src={business.photo_url} alt="Main" className="h-24 w-36 rounded-xl object-cover" />
+                ) : (
+                  <div className="flex h-24 w-36 items-center justify-center rounded-xl bg-slate-100 text-xs text-slate-400">
+                    No photo yet
+                  </div>
+                )}
+                <div className="flex flex-wrap gap-2">
+                  <label className={pickButton}>
+                    {business.photo_url ? 'Change photo' : 'Choose photo'}
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      className="hidden"
+                      disabled={uploading}
+                      onChange={(e) => {
+                        const f = e.target.files?.[0];
+                        e.target.value = '';
+                        if (f) uploadPhoto(f, 'profile');
+                      }}
+                    />
+                  </label>
+                  {business.photo_url && (
+                    <button
+                      type="button"
+                      disabled={uploading}
+                      onClick={() => removePhoto(business.photo_url!, 'profile')}
+                      className={pickButton}
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <p className="mb-2 text-sm font-medium text-slate-700">
+                Project photos ({business.gallery.length}/{MAX_GALLERY})
+              </p>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                {business.gallery.map((src) => (
+                  <div key={src} className="relative aspect-square overflow-hidden rounded-xl bg-slate-100">
+                    <img src={src} alt="Project" className="h-full w-full object-cover" />
+                    <button
+                      type="button"
+                      disabled={uploading}
+                      onClick={() => removePhoto(src, 'gallery')}
+                      aria-label="Remove photo"
+                      className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-white/90 text-sm font-bold text-slate-700 shadow hover:bg-white"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+              {business.gallery.length < MAX_GALLERY && (
+                <label className={`${pickButton} mt-3 inline-block`}>
+                  Add a project photo
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    className="hidden"
+                    disabled={uploading}
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      e.target.value = '';
+                      if (f) uploadPhoto(f, 'gallery');
+                    }}
+                  />
+                </label>
+              )}
+            </div>
+
+            {uploading && <p className="text-sm text-slate-500">Working on your photo...</p>}
+            <p className="text-xs text-slate-400">
+              JPG, PNG or WebP. Only upload photos you own or have permission to share, and don&apos;t show customers&apos;
+              faces or private homes without their consent.
+            </p>
+          </div>
+        )}
+      </div>
+
       <label className="flex items-start gap-3 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
         <input type="checkbox" name="published" defaultChecked={business?.published} className="mt-1" />
         <span>
-          Make my website public. Your business name, description and phone number will be visible to anyone.
+          Make my website public. Your business name, description, phone number and photos will be visible to anyone.
         </span>
       </label>
 
