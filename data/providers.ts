@@ -22,6 +22,8 @@ export const trades = [
   'Tailor',
   'Cobbler',
   'Painter',
+    'Carpenter',
+  'Mechanic',
 ];
 
 export const areas = [

@@ -2,14 +2,14 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { ChevronDown, MapPin, Menu, X } from 'lucide-react';
+import { ArrowRight, Menu, Wrench, X } from 'lucide-react';
 
 const links = [
   { label: 'Home', href: '/' },
-  { label: 'Services', href: '/#services' },
-  { label: 'How It Works', href: '/#how' },
-  { label: 'For Professionals', href: '/#professionals' },
-  { label: 'About', href: '/#why' },
+  { label: 'Templates', href: '/#templates' },
+  { label: 'Features', href: '/#features' },
+  { label: 'Pricing', href: '/#pricing' },
+  { label: 'FAQ', href: '/#faq' },
 ];
 
 export default function Navbar() {
@@ -19,34 +19,29 @@ export default function Navbar() {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3">
         <Link href="/" className="flex items-center gap-2">
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-700 text-white">
-            <MapPin className="h-5 w-5" />
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 text-white">
+            <Wrench className="h-5 w-5" />
           </span>
-          <span className="leading-tight">
-            <span className="font-display block text-xl font-bold text-slate-900">
-              Fix<span className="text-emerald-700">Near</span>
-            </span>
-            <span className="hidden text-[10px] text-slate-500 sm:block">Real People. Reliable Services.</span>
-          </span>
+          <span className="font-display text-xl font-bold text-slate-900">FixNear</span>
         </Link>
 
-        <nav className="hidden items-center gap-7 text-sm font-medium text-slate-700 lg:flex">
+        <nav className="hidden items-center gap-8 text-sm font-medium text-slate-700 lg:flex">
           {links.map((l) => (
-            <Link key={l.label} href={l.href} className="transition hover:text-emerald-700">
+            <Link key={l.label} href={l.href} className="transition hover:text-blue-600">
               {l.label}
             </Link>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
-          <span className="hidden items-center gap-1.5 text-sm text-slate-700 lg:flex">
-            <MapPin className="h-4 w-4 text-emerald-700" /> Port Harcourt <ChevronDown className="h-4 w-4 text-slate-400" />
-          </span>
-          <Link href="/login" className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-800 transition hover:bg-slate-50">
-            Log In
+        <div className="hidden items-center gap-5 md:flex">
+          <Link href="/login" className="text-sm font-medium text-slate-700 hover:text-blue-600">
+            Log in
           </Link>
-          <Link href="/signup" className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800">
-            Sign Up
+          <Link
+            href="/signup"
+            className="flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
+          >
+            Get Started <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
 
@@ -69,10 +64,10 @@ export default function Navbar() {
           ))}
           <div className="mt-4 grid grid-cols-2 gap-3">
             <Link href="/login" onClick={() => setOpen(false)} className="rounded-lg border border-slate-300 py-2.5 text-center text-sm font-medium">
-              Log In
+              Log in
             </Link>
-            <Link href="/signup" onClick={() => setOpen(false)} className="rounded-lg bg-emerald-700 py-2.5 text-center text-sm font-semibold text-white">
-              Sign Up
+            <Link href="/signup" onClick={() => setOpen(false)} className="rounded-lg bg-blue-600 py-2.5 text-center text-sm font-semibold text-white">
+              Get Started
             </Link>
           </div>
         </nav>
