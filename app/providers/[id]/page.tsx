@@ -1,6 +1,5 @@
-
 import Link from 'next/link';
-import { connection } from 'next/server';
+import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import {
   ArrowLeft,
@@ -34,11 +33,15 @@ type ProviderPageProps = {
   params: Promise<{ id: string }>;
 };
 
-export default async function ProviderPage({
-  params,
-}: ProviderPageProps) {
-  await connection();
+export default function ProviderPage({ params }: ProviderPageProps) {
+  return (
+    <Suspense fallback={<div className="p-10 text-center">Loading provider...</div>}>
+      <ProviderDetails params={params} />
+    </Suspense>
+  );
+}
 
+async function ProviderDetails({ params }: ProviderPageProps) {
   const { id } = await params;
 
   const p = providers.find((x) => x.id === id);
