@@ -10,7 +10,7 @@ import { getDirectory } from '@/lib/directory';
 type Params = { q?: string; trade?: string; area?: string; sort?: string };
 
 const field =
-  'w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-emerald-600';
+  'w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-blue-600';
 
 async function Results({ searchParams }: { searchParams: Promise<Params> }) {
   const { q = '', trade = '', area = '', sort = '' } = await searchParams;
@@ -58,7 +58,7 @@ async function Results({ searchParams }: { searchParams: Promise<Params> }) {
         </select>
         <button
           type="submit"
-          className="flex items-center justify-center gap-2 rounded-xl bg-emerald-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-emerald-800"
+          className="flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
         >
           <Search className="h-4 w-4" /> Search
         </button>
@@ -69,7 +69,7 @@ async function Results({ searchParams }: { searchParams: Promise<Params> }) {
           {results.length} {results.length === 1 ? 'professional' : 'professionals'} found
         </p>
         {filtered && (
-          <Link href="/providers" className="font-medium text-emerald-700 hover:underline">
+          <Link href="/providers" className="font-medium text-blue-600 hover:underline">
             Clear filters
           </Link>
         )}
@@ -79,7 +79,7 @@ async function Results({ searchParams }: { searchParams: Promise<Params> }) {
         <div className="rounded-2xl border border-dashed border-slate-300 bg-white py-16 text-center">
           <p className="font-display text-xl font-semibold text-slate-900">No professionals match your search</p>
           <p className="mt-2 text-sm text-slate-500">Try a different service or area.</p>
-          <Link href="/providers" className="mt-5 inline-block text-sm font-semibold text-emerald-700 hover:underline">
+          <Link href="/providers" className="mt-5 inline-block text-sm font-semibold text-blue-600 hover:underline">
             View all professionals
           </Link>
         </div>
@@ -98,7 +98,7 @@ export default function ProvidersPage({ searchParams }: { searchParams: Promise<
       <Navbar />
 
       <main className="mx-auto max-w-6xl px-5 pb-20 pt-28">
-        <p className="text-xs font-semibold uppercase tracking-widest text-emerald-700">Port Harcourt</p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-blue-600">Port Harcourt</p>
         <h1 className="font-display mt-2 text-3xl font-bold text-slate-900 md:text-4xl">Find a professional</h1>
         <p className="mb-8 mt-2 text-sm text-slate-500">Browse sample listings by service and area.</p>
 

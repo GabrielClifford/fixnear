@@ -7,7 +7,7 @@ import { createClient } from '@/lib/supabase/client';
 import { trades } from '@/data/providers';
 
 const field =
-  'w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-emerald-600';
+  'w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-blue-600';
 
 export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
   const isSignup = mode === 'signup';
@@ -100,7 +100,7 @@ export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
               type="button"
               onClick={() => setRole(r)}
               className={`rounded-lg py-2.5 transition ${
-                role === r ? 'bg-white text-emerald-700 shadow-sm' : 'text-slate-500'
+                role === r ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'
               }`}
             >
               {r === 'customer' ? 'I need a service' : 'I offer a service'}
@@ -133,7 +133,7 @@ export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-xl bg-emerald-700 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-emerald-800 disabled:opacity-60"
+          className="w-full rounded-xl bg-blue-600 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60"
         >
           {loading ? 'Please wait...' : isSignup ? 'Create account' : 'Log in'}
         </button>
@@ -143,7 +143,7 @@ export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
         {isSignup ? 'Already have an account? ' : "Don't have an account? "}
         <Link
           href={isSignup ? '/login' : '/signup'}
-          className="font-semibold text-emerald-700 hover:underline"
+          className="font-semibold text-blue-600 hover:underline"
         >
           {isSignup ? 'Log in' : 'Sign up'}
         </Link>

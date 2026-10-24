@@ -22,7 +22,7 @@ export function generateStaticParams() {
 }
 
 const tones = [
-  'from-emerald-100 to-emerald-200 text-emerald-800',
+  'from-blue-100 to-blue-200 text-blue-700',
   'from-sky-100 to-sky-200 text-sky-800',
   'from-amber-100 to-amber-200 text-amber-800',
   'from-violet-100 to-violet-200 text-violet-800',
@@ -77,7 +77,7 @@ async function ProviderDetails({ params }: ProviderPageProps) {
       <main className="mx-auto max-w-6xl px-5 pb-20 pt-28">
         <Link
           href="/providers"
-          className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-emerald-700"
+          className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-blue-600"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to results
@@ -108,7 +108,7 @@ async function ProviderDetails({ params }: ProviderPageProps) {
               </h1>
 
               {p.verified ? (
-                <span className="flex items-center gap-1 rounded-full bg-emerald-700 px-3 py-1 text-xs font-semibold text-white">
+                <span className="flex items-center gap-1 rounded-full bg-blue-600 px-3 py-1 text-xs font-semibold text-white">
                   <BadgeCheck className="h-4 w-4" />
                   Verified
                 </span>
@@ -123,7 +123,7 @@ async function ProviderDetails({ params }: ProviderPageProps) {
 
             <Link
               href={`/s/${p.id}`}
-              className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-emerald-700 hover:underline"
+              className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:underline"
             >
               View mini-website
               <ArrowRight className="h-4 w-4" />
@@ -142,7 +142,7 @@ async function ProviderDetails({ params }: ProviderPageProps) {
 
               <div>
                 <p className="flex items-center gap-1 text-lg font-semibold text-slate-900">
-                  <Briefcase className="h-5 w-5 text-emerald-700" />
+                  <Briefcase className="h-5 w-5 text-blue-600" />
                   {p.years} yrs
                 </p>
                 <p className="text-xs text-slate-500">Experience</p>
@@ -150,7 +150,7 @@ async function ProviderDetails({ params }: ProviderPageProps) {
 
               <div>
                 <p className="flex items-center gap-1 text-lg font-semibold text-slate-900">
-                  <MapPin className="h-5 w-5 text-emerald-700" />
+                  <MapPin className="h-5 w-5 text-blue-600" />
                   {p.area}
                 </p>
                 <p className="text-xs text-slate-500">{p.city}</p>
@@ -158,7 +158,7 @@ async function ProviderDetails({ params }: ProviderPageProps) {
 
               <div>
                 <p className="flex items-center gap-1 text-lg font-semibold text-slate-900">
-                  <Wallet className="h-5 w-5 text-emerald-700" />
+                  <Wallet className="h-5 w-5 text-blue-600" />
                   ₦{p.priceFrom.toLocaleString('en-NG')}
                 </p>
                 <p className="text-xs text-slate-500">Starting price</p>
@@ -183,7 +183,7 @@ async function ProviderDetails({ params }: ProviderPageProps) {
 
           <aside className="h-fit rounded-2xl border border-slate-200 bg-white p-6 shadow-sm lg:sticky lg:top-24">
             <p className="text-sm text-slate-500">Starting from</p>
-            <p className="font-display text-3xl font-bold text-emerald-700">
+            <p className="font-display text-3xl font-bold text-blue-600">
               {formatPrice(p.priceFrom).replace('From ', '')}
             </p>
             <p className="mb-5 mt-1 text-xs text-slate-400">

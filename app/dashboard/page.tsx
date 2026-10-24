@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import type { User } from '@supabase/supabase-js';
-import { BarChart3, Globe, Home, Inbox, LogOut, MapPin, Settings } from 'lucide-react';
+import { BarChart3, Globe, Home, Inbox, LogOut, Wrench, Settings } from 'lucide-react';
 import BusinessForm from '@/components/BusinessForm';
 import DashboardOverview, { type Tab } from '@/components/DashboardOverview';
 import { createClient } from '@/lib/supabase/client';
@@ -85,11 +85,13 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-slate-100 text-slate-900">
       <header className="sticky top-0 z-40 flex items-center justify-between bg-slate-950 px-4 py-3 text-white sm:px-6">
-        <Link href="/" className="font-display flex items-center gap-2 text-lg font-bold">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600">
-            <MapPin className="h-4 w-4" />
+        <Link href="/" className="flex items-center gap-2">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white">
+            <Wrench className="h-4 w-4" />
           </span>
-          Fix<span className="text-emerald-400">Near</span>
+          <span className="font-display text-lg font-bold">
+            Fix<span className="text-blue-400">Near</span>
+          </span>
         </Link>
         <div className="flex items-center gap-3">
           <Link href="/" className="hidden text-sm text-slate-300 hover:text-white sm:block">
@@ -99,7 +101,7 @@ export default function DashboardPage() {
             <p className="text-sm font-medium">{name}</p>
             <p className="text-xs text-slate-400">{isArtisan ? 'Artisan' : 'Customer'}</p>
           </div>
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-700 text-sm font-semibold">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 text-sm font-semibold">
             {initials}
           </span>
         </div>

@@ -26,7 +26,7 @@ type Business = {
 };
 
 const field =
-  'w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-emerald-600';
+  'w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-blue-600';
 const label = 'mb-1.5 block text-sm font-medium text-slate-700';
 const MAX_GALLERY = 6;
 const BUCKET = 'business-photos';
@@ -382,7 +382,7 @@ export default function BusinessForm({ user }: { user: User }) {
 
       {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
       {message && (
-        <p className="rounded-lg bg-emerald-50 px-3 py-2 text-sm text-emerald-800">
+        <p className="rounded-lg bg-blue-50 px-3 py-2 text-sm text-blue-700">
           {message}{' '}
           {business?.published ? (
             <Link href={`/b/${business.slug}`} className="font-semibold underline">View your website</Link>
@@ -395,7 +395,7 @@ export default function BusinessForm({ user }: { user: User }) {
       <button
         type="submit"
         disabled={saving}
-        className="rounded-xl bg-emerald-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-emerald-800 disabled:opacity-60"
+        className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60"
       >
         {saving ? 'Saving...' : 'Save'}
       </button>

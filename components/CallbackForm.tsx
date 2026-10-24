@@ -5,11 +5,11 @@ import { useState } from 'react';
 export default function CallbackForm({ name }: { name: string }) {
   const [sent, setSent] = useState(false);
   const field =
-    'w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-emerald-600';
+    'w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-blue-600';
 
   if (sent) {
     return (
-      <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-5 text-sm">
+      <div className="rounded-xl border border-blue-200 bg-blue-50 p-5 text-sm">
         <p className="font-display text-lg font-semibold text-slate-900">Request received</p>
         <p className="mt-1 text-slate-600">{name} will get back to you shortly.</p>
       </div>
@@ -34,7 +34,7 @@ export default function CallbackForm({ name }: { name: string }) {
       />
       <button
         type="submit"
-        className="w-full rounded-xl bg-emerald-700 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-emerald-800"
+        className="w-full rounded-xl bg-blue-600 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-blue-700"
       >
         Request a callback
       </button>

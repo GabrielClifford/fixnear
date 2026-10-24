@@ -65,7 +65,7 @@ export default function DashboardOverview({
           </p>
           <Link
             href="/providers"
-            className="mt-4 inline-block rounded-xl bg-emerald-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-800"
+            className="mt-4 inline-block rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
           >
             Browse professionals
           </Link>
@@ -120,7 +120,7 @@ export default function DashboardOverview({
               <div key={s.label} className="p-4">
                 <p className="text-sm text-slate-500">{s.label}</p>
                 <p className="font-display mt-1 text-2xl font-bold text-slate-900">{s.value}</p>
-                <p className="mt-1 text-xs text-emerald-700">{s.note}</p>
+                <p className="mt-1 text-xs text-blue-600">{s.note}</p>
               </div>
             ))}
           </div>
@@ -129,11 +129,11 @@ export default function DashboardOverview({
           <div className={`${card} p-5`}>
             <div className="flex items-center justify-between">
               <h2 className="flex items-center gap-2 font-display text-lg font-semibold text-slate-900">
-                <Sparkles className="h-5 w-5 text-emerald-700" /> Next steps
+                <Sparkles className="h-5 w-5 text-blue-600" /> Next steps
               </h2>
               <div className="flex items-center gap-3 text-xs text-slate-500">
                 <div className="h-1.5 w-24 overflow-hidden rounded-full bg-slate-100">
-                  <div className="h-full rounded-full bg-emerald-600" style={{ width: `${percent}%` }} />
+                  <div className="h-full rounded-full bg-blue-600" style={{ width: `${percent}%` }} />
                 </div>
                 {doneCount} / {steps.length}
               </div>
@@ -147,7 +147,7 @@ export default function DashboardOverview({
                 >
                   <span
                     className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
-                      s.done ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-400'
+                      s.done ? 'bg-blue-100 text-blue-600' : 'bg-slate-100 text-slate-400'
                     }`}
                   >
                     <Check className="h-5 w-5" />
@@ -180,13 +180,13 @@ export default function DashboardOverview({
           {/* Your website */}
           <div className={`${card} p-5`}>
             <h2 className="flex items-center gap-2 font-display text-lg font-semibold text-slate-900">
-              <Globe className="h-5 w-5 text-emerald-700" /> Your website
+              <Globe className="h-5 w-5 text-blue-600" /> Your website
             </h2>
             {b ? (
               <>
                 <span
                   className={`mt-3 inline-block rounded-full px-3 py-1 text-xs font-semibold ${
-                    b.published ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
+                    b.published ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-800'
                   }`}
                 >
                   {b.published ? 'Live' : 'Not published'}
@@ -198,7 +198,7 @@ export default function DashboardOverview({
                     <div className="mt-4 flex flex-wrap gap-2">
                       <Link
                         href={`/b/${b.slug}`}
-                        className="rounded-lg bg-emerald-700 px-4 py-2 text-xs font-semibold text-white transition hover:bg-emerald-800"
+                        className="rounded-lg bg-blue-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-blue-700"
                       >
                         View website
                       </Link>
@@ -213,7 +213,7 @@ export default function DashboardOverview({
                 ) : (
                   <button
                     onClick={() => onNavigate('website')}
-                    className="mt-4 rounded-lg bg-emerald-700 px-4 py-2 text-xs font-semibold text-white transition hover:bg-emerald-800"
+                    className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-blue-700"
                   >
                     Finish and publish
                   </button>
@@ -224,7 +224,7 @@ export default function DashboardOverview({
                 <p className="mt-3 text-sm text-slate-600">You haven&apos;t created your website yet. It only takes a few minutes.</p>
                 <button
                   onClick={() => onNavigate('website')}
-                  className="mt-4 rounded-lg bg-emerald-700 px-4 py-2 text-xs font-semibold text-white transition hover:bg-emerald-800"
+                  className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-blue-700"
                 >
                   Create your website
                 </button>
@@ -233,9 +233,9 @@ export default function DashboardOverview({
           </div>
 
           {/* Tips */}
-          <div className="rounded-2xl bg-gradient-to-br from-emerald-900 to-emerald-700 p-5 text-white shadow-sm">
+          <div className="rounded-2xl bg-gradient-to-br from-blue-900 to-blue-600 p-5 text-white shadow-sm">
             <h2 className="font-display text-lg font-semibold">Get more customers</h2>
-            <ul className="mt-3 space-y-2 text-sm text-emerald-50">
+            <ul className="mt-3 space-y-2 text-sm text-blue-50">
               <li>• Add clear photos of your best work</li>
               <li>• Share your website link on WhatsApp and Instagram</li>
               <li>• Keep your phone number up to date</li>
@@ -245,7 +245,7 @@ export default function DashboardOverview({
                 href={`https://wa.me/?text=${encodeURIComponent(`Check out my website: ${siteUrl}`)}`}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-4 inline-block rounded-lg bg-white px-4 py-2 text-xs font-semibold text-emerald-900 transition hover:bg-emerald-50"
+                className="mt-4 inline-block rounded-lg bg-white px-4 py-2 text-xs font-semibold text-blue-900 transition hover:bg-blue-50"
               >
                 Share on WhatsApp
               </a>

@@ -3,7 +3,7 @@ import { BadgeCheck, MapPin, Star } from 'lucide-react';
 import { Provider } from '@/data/providers';
 
 const tones = [
-  'from-emerald-100 to-emerald-200 text-emerald-800',
+  'from-blue-100 to-blue-200 text-blue-700',
   'from-sky-100 to-sky-200 text-sky-800',
   'from-amber-100 to-amber-200 text-amber-800',
   'from-violet-100 to-violet-200 text-violet-800',
@@ -47,7 +47,7 @@ export default function ProviderCard({ p }: { p: Provider }) {
           )}
         </span>
         {p.verified ? (
-          <span className="absolute left-3 top-3 z-10 flex items-center gap-1 rounded-full bg-emerald-700 px-2 py-1 text-[11px] font-semibold text-white">
+          <span className="absolute left-3 top-3 z-10 flex items-center gap-1 rounded-full bg-blue-600 px-2 py-1 text-[11px] font-semibold text-white">
             <BadgeCheck className="h-3.5 w-3.5" /> Verified
           </span>
         ) : (
@@ -80,13 +80,13 @@ export default function ProviderCard({ p }: { p: Provider }) {
             {p.priceFrom > 0 ? (
               <>
                 <span className="text-slate-400">From </span>
-                <span className="font-semibold text-emerald-700">₦{p.priceFrom.toLocaleString('en-NG')}</span>
+                <span className="font-semibold text-blue-600">₦{p.priceFrom.toLocaleString('en-NG')}</span>
               </>
             ) : (
               <span className="text-slate-500">Ask for a quote</span>
             )}
           </span>
-          <span className="rounded-lg bg-emerald-700 px-4 py-2 text-xs font-semibold text-white transition group-hover:bg-emerald-800">
+          <span className="rounded-lg bg-blue-600 px-4 py-2 text-xs font-semibold text-white transition group-hover:bg-blue-700">
             View profile
           </span>
         </div>

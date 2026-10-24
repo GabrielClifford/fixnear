@@ -25,9 +25,9 @@ export default function ArtisanSite({
       <footer className={`bg-slate-900 px-5 py-6 text-center text-xs text-slate-400 ${sample ? 'pb-24' : ''}`}>
         <p>
           {sample ? 'Sample website for demonstration. ' : ''}Made with{' '}
-          <Link href="/" className="font-semibold text-emerald-400">FixNear</Link>
+          <Link href="/" className="font-semibold text-blue-400">FixNear</Link>
         </p>
-        <Link href="/signup" className="mt-1 inline-block text-emerald-400 underline">
+        <Link href="/signup" className="mt-1 inline-block text-blue-400 underline">
           Get your own website
         </Link>
       </footer>
@@ -41,7 +41,7 @@ export default function ArtisanSite({
               type="button"
               onClick={() => setTheme(t.id)}
               className={`rounded-full px-4 py-2 font-semibold transition ${
-                theme === t.id ? 'bg-emerald-700 text-white' : 'text-slate-600 hover:bg-slate-100'
+                theme === t.id ? 'bg-blue-600 text-white' : 'text-slate-600 hover:bg-slate-100'
               }`}
             >
               {t.label}
