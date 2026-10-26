@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
 import ArtisanSite from '@/components/ArtisanSite';
+import VisitTracker from '@/components/VisitTracker';
 import type { Provider } from '@/data/providers';
 import type { SiteSettings } from '@/data/sites';
 
@@ -33,7 +34,7 @@ async function Site({ params }: { params: Promise<{ slug: string }> }) {
     priceFrom: b.price_from ?? 0,
     about: b.about ?? '',
   };
-    const s: SiteSettings = {
+  const s: SiteSettings = {
     tagline: b.tagline ?? '',
     services: b.services ?? [],
     serviceAreas: b.service_areas ?? [],
@@ -43,7 +44,12 @@ async function Site({ params }: { params: Promise<{ slug: string }> }) {
     gallery: b.gallery ?? [],
   };
 
-  return <ArtisanSite p={p} s={s} sample={false} />;
+  return (
+    <>
+      <ArtisanSite p={p} s={s} sample={false} />
+      <VisitTracker businessId={b.id} />
+    </>
+  );
 }
 
 export default function BusinessPage({ params }: { params: Promise<{ slug: string }> }) {

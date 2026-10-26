@@ -5,7 +5,7 @@ import Link from 'next/link';
 import type { User } from '@supabase/supabase-js';
 import { Check, ChevronRight, Globe, Inbox, Sparkles } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
-
+import VisitsOverview from '@/components/VisitsOverview';
 export type Tab = 'home' | 'website' | 'settings';
 
 type Business = {
@@ -96,13 +96,6 @@ export default function DashboardOverview({
     setTimeout(() => setCopied(false), 2000);
   }
 
-  const stats = [
-    { label: 'Website', value: b?.published ? 'Live' : 'Not live', note: b?.published ? 'Visible to everyone' : 'Only you can see it' },
-    { label: 'Setup progress', value: `${percent}%`, note: `${doneCount} of ${steps.length} steps done` },
-    { label: 'Photos', value: String(photos), note: 'Main and project photos' },
-    { label: 'Services listed', value: String(b?.services.length ?? 0), note: 'Shown on your website' },
-  ];
-
   return (
     <div className="space-y-6">
       <div>
@@ -114,17 +107,7 @@ export default function DashboardOverview({
 
       <div className="grid gap-6 xl:grid-cols-[2fr_1fr]">
         <div className="space-y-6">
-          {/* Stats */}
-          <div className={`${card} grid grid-cols-2 divide-slate-100 p-2 md:grid-cols-4 md:divide-x`}>
-            {stats.map((s) => (
-              <div key={s.label} className="p-4">
-                <p className="text-sm text-slate-500">{s.label}</p>
-                <p className="font-display mt-1 text-2xl font-bold text-slate-900">{s.value}</p>
-                <p className="mt-1 text-xs text-blue-600">{s.note}</p>
-              </div>
-            ))}
-          </div>
-
+                    <VisitsOverview userId={user.id} />
           {/* Next steps */}
           <div className={`${card} p-5`}>
             <div className="flex items-center justify-between">
