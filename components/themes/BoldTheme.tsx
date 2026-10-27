@@ -95,7 +95,7 @@ export default function BoldTheme({ p, s }: ThemeProps) {
             {s.phone && <p className="mt-2 text-sm font-semibold">Phone: {s.phone}</p>}
           </div>
           <div className="rounded-3xl bg-white p-6">
-            <CallbackForm name={p.name} />
+            <CallbackForm name={p.name} businessId={s.businessId} />
           </div>
         </div>
       </section>

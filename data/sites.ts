@@ -10,6 +10,7 @@ export type SiteSettings = {
   phone?: string;
   photoUrl?: string;
   gallery?: string[];
+    businessId?: string;
 };
 
 export type ThemeProps = { p: Provider; s: SiteSettings };

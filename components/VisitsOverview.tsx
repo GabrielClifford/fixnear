@@ -100,7 +100,7 @@ function Chart({ days }: { days: Day[] }) {
   );
 }
 
-export default function VisitsOverview({ userId }: { userId: string }) {
+export default function VisitsOverview({ userId, enquiries }: { userId: string; enquiries?: number }) {
   const [state, setState] = useState<State>({ kind: 'loading' });
 
   useEffect(() => {
@@ -173,7 +173,7 @@ export default function VisitsOverview({ userId }: { userId: string }) {
     { label: 'Visits', value: current.visits.toLocaleString(), note: <Change pct={percentChange(current.visits, previous.visits)} /> },
     { label: 'Unique visitors', value: current.uniques.toLocaleString(), note: <Change pct={percentChange(current.uniques, previous.uniques)} /> },
     { label: 'Visits today', value: today.toLocaleString(), note: <p className="mt-1 text-xs text-slate-400">Nigeria time</p> },
-    { label: 'Enquiries', value: 'Soon', note: <p className="mt-1 text-xs text-slate-400">Coming soon</p> },
+        { label: 'Enquiries', value: enquiries === undefined ? '-' : enquiries.toLocaleString(), note: <p className="mt-1 text-xs text-slate-400">Last 7 days</p> },
   ];
 
   return (

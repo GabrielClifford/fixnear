@@ -3,12 +3,15 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import type { User } from '@supabase/supabase-js';
-import { Check, ChevronRight, Globe, Inbox, Sparkles } from 'lucide-react';
+import { Check, ChevronRight, Globe, Sparkles, Users } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import VisitsOverview from '@/components/VisitsOverview';
-export type Tab = 'home' | 'website' | 'settings';
+import ChannelBreakdown from '@/components/ChannelBreakdown';
+
+export type Tab = 'home' | 'website' | 'customers' | 'channels' | 'settings';
 
 type Business = {
+  id: string;
   slug: string;
   name: string;
   services: string[];
@@ -31,6 +34,7 @@ export default function DashboardOverview({
   onNavigate: (tab: Tab) => void;
 }) {
   const [b, setB] = useState<Business | null | undefined>(undefined);
+  const [enq, setEnq] = useState<{ fresh: number; week: number } | null>(null);
   const [copied, setCopied] = useState(false);
 
   const meta = (user.user_metadata ?? {}) as { full_name?: string };
@@ -41,12 +45,24 @@ export default function DashboardOverview({
 
   useEffect(() => {
     if (!isArtisan) return;
-    createClient()
-      .from('businesses')
-      .select('slug,name,services,phone,photo_url,gallery,published,created_at')
-      .eq('owner_id', user.id)
-      .maybeSingle()
-      .then(({ data }) => setB((data as Business | null) ?? null));
+    const supabase = createClient();
+    (async () => {
+      const { data } = await supabase
+        .from('businesses')
+        .select('id,slug,name,services,phone,photo_url,gallery,published,created_at')
+        .eq('owner_id', user.id)
+        .maybeSingle();
+      const biz = (data as Business | null) ?? null;
+      setB(biz);
+      if (biz) {
+        const since = new Date(Date.now() - 7 * 86400000).toISOString();
+        const [fresh, week] = await Promise.all([
+          supabase.from('enquiries').select('id', { count: 'exact', head: true }).eq('business_id', biz.id).eq('status', 'new'),
+          supabase.from('enquiries').select('id', { count: 'exact', head: true }).eq('business_id', biz.id).gte('created_at', since),
+        ]);
+        setEnq({ fresh: fresh.count ?? 0, week: week.count ?? 0 });
+      }
+    })();
   }, [user.id, isArtisan]);
 
   if (!isArtisan) {
@@ -59,15 +75,15 @@ export default function DashboardOverview({
           <p className="mt-1 text-slate-500">Your account is ready.</p>
         </div>
         <div className={`${card} p-6`}>
-          <h2 className="font-display text-lg font-semibold text-slate-900">Find a professional</h2>
+          <h2 className="font-display text-lg font-semibold text-slate-900">FixNear is for artisans</h2>
           <p className="mt-2 text-sm text-slate-600">
-            Browse electricians, plumbers, tailors and more, then contact them from their profiles.
+            FixNear helps artisans build their own websites. To create one, sign up with an artisan account.
           </p>
           <Link
-            href="/providers"
+            href="/"
             className="mt-4 inline-block rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
           >
-            Browse professionals
+            Back to home
           </Link>
         </div>
       </div>
@@ -107,7 +123,8 @@ export default function DashboardOverview({
 
       <div className="grid gap-6 xl:grid-cols-[2fr_1fr]">
         <div className="space-y-6">
-                    <VisitsOverview userId={user.id} />
+          <VisitsOverview userId={user.id} enquiries={enq?.week} />
+
           {/* Next steps */}
           <div className={`${card} p-5`}>
             <div className="flex items-center justify-between">
@@ -130,7 +147,7 @@ export default function DashboardOverview({
                 >
                   <span
                     className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
-                      s.done ? 'bg-blue-100 text-blue-600' : 'bg-slate-100 text-slate-400'
+                      s.done ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-400'
                     }`}
                   >
                     <Check className="h-5 w-5" />
@@ -147,15 +164,27 @@ export default function DashboardOverview({
             </div>
           </div>
 
-          {/* Enquiries placeholder */}
-          <div className={`${card} flex items-center gap-4 p-5`}>
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
-              <Inbox className="h-5 w-5" />
+          {/* Customers */}
+          <div className={`${card} flex flex-wrap items-center gap-4 p-5`}>
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+              <Users className="h-5 w-5" />
             </span>
-            <div>
-              <h2 className="font-display text-base font-semibold text-slate-900">Customer enquiries</h2>
-              <p className="text-sm text-slate-500">Coming soon. Enquiries from your website will appear here.</p>
+            <div className="min-w-0 flex-1">
+              <h2 className="font-display text-base font-semibold text-slate-900">Customers</h2>
+              <p className="text-sm text-slate-500">
+                {enq === null
+                  ? 'Loading...'
+                  : enq.fresh > 0
+                    ? `You have ${enq.fresh} new enquir${enq.fresh === 1 ? 'y' : 'ies'}.`
+                    : 'No new enquiries right now.'}
+              </p>
             </div>
+            <button
+              onClick={() => onNavigate('customers')}
+              className="rounded-lg border border-slate-300 px-4 py-2 text-xs font-medium text-slate-700 transition hover:bg-slate-50"
+            >
+              View customers
+            </button>
           </div>
         </div>
 
@@ -169,15 +198,18 @@ export default function DashboardOverview({
               <>
                 <span
                   className={`mt-3 inline-block rounded-full px-3 py-1 text-xs font-semibold ${
-                    b.published ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-800'
+                    b.published ? 'bg-blue-100 text-blue-800' : 'bg-amber-100 text-amber-800'
                   }`}
                 >
                   {b.published ? 'Live' : 'Not published'}
                 </span>
                 <p className="mt-3 text-sm font-medium text-slate-900">{b.name}</p>
+                <p className="mt-1 text-xs text-slate-500">
+                  {photos} photo{photos === 1 ? '' : 's'} · {b.services.length} service{b.services.length === 1 ? '' : 's'}
+                </p>
                 {b.published ? (
                   <>
-                    <p className="mt-1 break-all text-xs text-slate-500">{siteUrl}</p>
+                    <p className="mt-2 break-all text-xs text-slate-500">{siteUrl}</p>
                     <div className="mt-4 flex flex-wrap gap-2">
                       <Link
                         href={`/b/${b.slug}`}
@@ -215,24 +247,23 @@ export default function DashboardOverview({
             )}
           </div>
 
+          {/* Visits by channel */}
+          {b && <ChannelBreakdown businessId={b.id} onViewAll={() => onNavigate('channels')} />}
+
           {/* Tips */}
-          <div className="rounded-2xl bg-gradient-to-br from-blue-900 to-blue-600 p-5 text-white shadow-sm">
+          <div className="rounded-2xl bg-gradient-to-br from-slate-900 to-blue-900 p-5 text-white shadow-sm">
             <h2 className="font-display text-lg font-semibold">Get more customers</h2>
             <ul className="mt-3 space-y-2 text-sm text-blue-50">
               <li>• Add clear photos of your best work</li>
-              <li>• Share your website link on WhatsApp and Instagram</li>
-              <li>• Keep your phone number up to date</li>
+              <li>• Share your channel links on WhatsApp and Instagram</li>
+              <li>• Reply quickly to every enquiry</li>
             </ul>
-            {b?.published && (
-              <a
-                href={`https://wa.me/?text=${encodeURIComponent(`Check out my website: ${siteUrl}`)}`}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-4 inline-block rounded-lg bg-white px-4 py-2 text-xs font-semibold text-blue-900 transition hover:bg-blue-50"
-              >
-                Share on WhatsApp
-              </a>
-            )}
+            <button
+              onClick={() => onNavigate('channels')}
+              className="mt-4 rounded-lg bg-white px-4 py-2 text-xs font-semibold text-slate-900 transition hover:bg-blue-50"
+            >
+              Get my links
+            </button>
           </div>
 
           {/* Activity */}

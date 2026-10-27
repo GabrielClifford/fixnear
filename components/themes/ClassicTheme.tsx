@@ -112,7 +112,7 @@ export default function ClassicTheme({ p, s }: ThemeProps) {
             {s.phone && <p className="mt-2 text-sm text-blue-100">Phone: {s.phone}</p>}
           </div>
           <div className="rounded-3xl bg-white p-6 text-slate-900">
-            <CallbackForm name={p.name} />
+            <CallbackForm name={p.name} businessId={s.businessId} />
           </div>
         </div>
       </section>

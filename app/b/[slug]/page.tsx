@@ -42,6 +42,7 @@ async function Site({ params }: { params: Promise<{ slug: string }> }) {
     phone: b.phone ?? undefined,
     photoUrl: b.photo_url ?? undefined,
     gallery: b.gallery ?? [],
+        businessId: b.id,
   };
 
   return (
