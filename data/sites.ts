@@ -1,6 +1,6 @@
 import { Provider } from './providers';
 
-export type ThemeName = 'classic' | 'bold';
+export type ThemeName = 'classic' | 'bold' | 'spark';
 
 export type SiteSettings = {
   tagline: string;
@@ -18,6 +18,7 @@ export type ThemeProps = { p: Provider; s: SiteSettings };
 export const themes: { id: ThemeName; label: string }[] = [
   { id: 'classic', label: 'Classic' },
   { id: 'bold', label: 'Bold' },
+  { id: 'spark', label: 'Spark' },
 ];
 
 export const defaultSettings: SiteSettings = {
@@ -29,7 +30,7 @@ export const defaultSettings: SiteSettings = {
 
 // Sample site settings, one entry per provider id.
 export const siteSettings: Record<string, SiteSettings> = {
-  'bright-spark-electricals': { tagline: 'Safe, tidy electrical work for your home and shop.', services: ['House wiring and rewiring', 'Fault finding and repairs', 'Socket and light installation', 'Prepaid meter fixes', 'Distribution board upgrades'], serviceAreas: ['Choba', 'Rumuokoro', 'Eliozu'], theme: 'classic' },
+  'bright-spark-electricals': { tagline: 'Safe, tidy electrical work for your home and shop.', services: ['House wiring and rewiring', 'Fault finding and repairs', 'Socket and light installation', 'Prepaid meter fixes', 'Distribution board upgrades'], serviceAreas: ['Choba', 'Rumuokoro', 'Eliozu'], theme: 'spark' },
   'rivers-power-works': { tagline: 'Power solutions that keep your lights on.', services: ['Rewiring', 'Inverter installation', 'Distribution board upgrades', 'Shop and office wiring'], serviceAreas: ['GRA', 'Rumuola', 'Trans Amadi'], theme: 'bold' },
   'steady-flow-plumbing': { tagline: 'Leaks fixed fast, pipes done right.', services: ['Leak repairs', 'Pipe fitting', 'Water tank installation', 'Borehole connections', 'Bathroom fittings'], serviceAreas: ['Rumuola', 'GRA', 'Rumuokoro'], theme: 'classic' },
   'clearway-plumbers': { tagline: 'Clear drains. Fresh water. No stress.', services: ['Blocked drains', 'Toilet and sink repairs', 'New plumbing installations', 'Water heater fitting'], serviceAreas: ['Eliozu', 'Choba'], theme: 'bold' },

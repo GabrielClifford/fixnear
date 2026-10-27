@@ -100,7 +100,7 @@ export default function BusinessForm({ user }: { user: User }) {
       phone: text('phone').slice(0, 30) || null,
       years: Math.max(0, Math.min(60, Number(form.get('years')) || 0)),
       price_from: Number(form.get('price')) || null,
-      theme: text('theme') === 'bold' ? 'bold' : 'classic',
+            theme: ['classic', 'bold', 'spark'].includes(text('theme')) ? text('theme') : 'classic',
       published: form.get('published') === 'on',
     };
 
@@ -276,6 +276,7 @@ export default function BusinessForm({ user }: { user: User }) {
         <select name="theme" defaultValue={business?.theme ?? 'classic'} className={field}>
           <option value="classic">Classic</option>
           <option value="bold">Bold</option>
+                    <option value="spark">Spark</option>
         </select>
       </div>
 

@@ -4,7 +4,7 @@ import { createClient } from '@supabase/supabase-js';
 import ArtisanSite from '@/components/ArtisanSite';
 import VisitTracker from '@/components/VisitTracker';
 import type { Provider } from '@/data/providers';
-import type { SiteSettings } from '@/data/sites';
+import type { SiteSettings, ThemeName } from '@/data/sites';
 
 async function Site({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -38,7 +38,7 @@ async function Site({ params }: { params: Promise<{ slug: string }> }) {
     tagline: b.tagline ?? '',
     services: b.services ?? [],
     serviceAreas: b.service_areas ?? [],
-    theme: b.theme === 'bold' ? 'bold' : 'classic',
+        theme: ['classic', 'bold', 'spark'].includes(b.theme) ? (b.theme as ThemeName) : 'classic',
     phone: b.phone ?? undefined,
     photoUrl: b.photo_url ?? undefined,
     gallery: b.gallery ?? [],

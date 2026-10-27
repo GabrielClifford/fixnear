@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import ClassicTheme from '@/components/themes/ClassicTheme';
 import BoldTheme from '@/components/themes/BoldTheme';
+import SparkTheme from '@/components/themes/SparkTheme';
 import { Provider } from '@/data/providers';
 import { SiteSettings, ThemeName, themes } from '@/data/sites';
 
@@ -17,10 +18,11 @@ export default function ArtisanSite({
   sample?: boolean;
 }) {
   const [theme, setTheme] = useState<ThemeName>(s.theme);
+  const Active = theme === 'bold' ? BoldTheme : theme === 'spark' ? SparkTheme : ClassicTheme;
 
   return (
     <>
-      {theme === 'bold' ? <BoldTheme p={p} s={s} /> : <ClassicTheme p={p} s={s} />}
+      <Active p={p} s={s} />
 
       <footer className={`bg-slate-900 px-5 py-6 text-center text-xs text-slate-400 ${sample ? 'pb-24' : ''}`}>
         <p>
@@ -33,8 +35,8 @@ export default function ArtisanSite({
       </footer>
 
       {sample && (
-        <div className="fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-1 rounded-full border border-slate-200 bg-white p-1 text-xs shadow-xl">
-          <span className="px-3 font-medium text-slate-500">Demo theme</span>
+        <div className="fixed bottom-4 left-1/2 z-50 flex max-w-[calc(100vw-1rem)] -translate-x-1/2 items-center gap-1 rounded-full border border-slate-200 bg-white p-1 text-xs shadow-xl">
+          <span className="hidden px-3 font-medium text-slate-500 sm:block">Demo theme</span>
           {themes.map((t) => (
             <button
               key={t.id}
