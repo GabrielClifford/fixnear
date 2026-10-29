@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-
+import PricingPlans from '@/components/PricingPlans';
 const templates = [
   { title: 'Electrician Website', href: '/s/bright-spark-electricals', photo: '/providers/bright-spark-electricals.jpg', line: 'Safe, tidy electrical work for your home and shop.' },
   { title: 'Plumber Website', href: '/s/steady-flow-plumbing', photo: '/providers/steady-flow-plumbing.jpg', line: 'Leaks fixed fast, pipes done right.' },
@@ -36,24 +36,7 @@ const features: { icon: React.ElementType; title: string; text: string; soon?: b
   { icon: Smartphone, title: 'Mobile Friendly', text: 'Your site looks great on every device.' },
 ];
 
-const plans: { name: string; price: string; popular?: boolean; items: { t: string; soon?: boolean }[] }[] = [
-  {
-    name: 'Starter',
-    price: '10,000',
-    items: [{ t: '1 website' }, { t: 'Basic templates' }, { t: 'Photo gallery' }, { t: 'Online support', soon: true }],
-  },
-  {
-    name: 'Professional',
-    price: '15,000',
-    popular: true,
-    items: [{ t: 'Everything in Starter' }, { t: 'Multiple templates' }, { t: 'Advanced features', soon: true }, { t: 'Priority support', soon: true }],
-  },
-  {
-    name: 'Business',
-    price: '25,000',
-    items: [{ t: 'Everything in Professional' }, { t: 'Analytics & insights', soon: true }, { t: 'Dedicated support', soon: true }],
-  },
-];
+
 
 const faqs = [
   { q: 'Do I need coding skills to use FixNear?', a: 'No. You fill in a simple form with your business details and photos, and FixNear builds your website for you.' },
@@ -330,49 +313,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl">
           <h2 className="font-display text-2xl font-bold text-slate-900">Simple, Transparent Pricing</h2>
           <p className="mt-2 text-sm text-slate-500">Choose the plan that fits your needs. No hidden fees.</p>
-
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {plans.map((p) => (
-              <div
-                key={p.name}
-                className={`relative rounded-2xl bg-white p-6 shadow-sm ${
-                  p.popular ? 'border-2 border-blue-600 shadow-lg' : 'border border-slate-200'
-                }`}
-              >
-                {p.popular && (
-                  <span className="absolute -top-3 left-6 rounded-md bg-blue-600 px-3 py-1 text-[11px] font-semibold text-white">
-                    Most Popular
-                  </span>
-                )}
-                <h3 className="text-sm font-semibold text-slate-900">{p.name}</h3>
-                <p className="font-display mt-2 text-3xl font-bold text-slate-900">
-                  ₦{p.price}
-                  <span className="text-sm font-normal text-slate-500"> /month</span>
-                </p>
-                <ul className="mt-5 space-y-3 text-sm text-slate-600">
-                  {p.items.map((it) => (
-                    <li key={it.t} className="flex items-start gap-2">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-blue-600" />
-                      <span>
-                        {it.t}
-                        {it.soon && <Soon />}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href="/signup"
-                  className={`mt-6 block rounded-lg py-3 text-center text-sm font-semibold transition ${
-                    p.popular
-                      ? 'bg-blue-600 text-white hover:bg-blue-700'
-                      : 'border border-blue-600 text-blue-600 hover:bg-blue-50'
-                  }`}
-                >
-                  Get Started
-                </Link>
-              </div>
-            ))}
-          </div>
+          <PricingPlans />
           <p className="mt-6 text-center text-xs text-slate-500">
             Billing opens soon. Until then, you can build and publish your website for free.
           </p>
