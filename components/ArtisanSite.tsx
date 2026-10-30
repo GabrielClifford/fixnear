@@ -27,7 +27,7 @@ export default function ArtisanSite({
       <footer className={`bg-slate-900 px-5 py-6 text-center text-xs text-slate-400 ${sample ? 'pb-24' : ''}`}>
         <p>
           {sample ? 'Sample website for demonstration. ' : ''}Made with{' '}
-          <Link href="/" className="font-semibold text-blue-400">FixNear</Link>
+          <Link href="/" className="font-semibold text-blue-400">Xenon</Link>
         </p>
         <Link href="/signup" className="mt-1 inline-block text-blue-400 underline">
           Get your own website

@@ -89,7 +89,7 @@ export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
         {isSignup ? 'Create your account' : 'Welcome back'}
       </h1>
       <p className="mt-1 text-sm text-slate-500">
-        {isSignup ? 'Join FixNear to find or offer trusted services.' : 'Log in to your FixNear account.'}
+        {isSignup ? 'Join Xenon to find or offer trusted services.' : 'Log in to your Xenon account.'}
       </p>
 
       {isSignup && (

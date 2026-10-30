@@ -32,7 +32,7 @@ export default function VisitTracker({ businessId }: { businessId: string }) {
       try {
         const supabase = createClient();
 
-        // Visits from logged-in FixNear accounts (including the owner) are not counted
+        // Visits from logged-in Xenon accounts (including the owner) are not counted
         const { data } = await supabase.auth.getSession();
         if (data.session) return;
 

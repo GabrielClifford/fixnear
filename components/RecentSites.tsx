@@ -28,9 +28,9 @@ export default async function RecentSites() {
     <section className="bg-slate-50 px-5 py-16">
       <div className="mx-auto max-w-6xl">
         <h2 className="font-display text-2xl font-bold text-slate-900 md:text-3xl">
-          Websites built with <span className="text-blue-600">FixNear</span>
+          Websites built with <span className="text-blue-600">Xenon</span>
         </h2>
-        <p className="mt-2 text-sm text-slate-500">Real businesses that launched their website on FixNear.</p>
+        <p className="mt-2 text-sm text-slate-500">Real businesses that launched their website on Xenon.</p>
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {rows.map((r) => (
             <Link

@@ -12,7 +12,7 @@ const reviews: Review[] = [
     name: "Emeka Okafor",
     business: "Emeka Electrical Services",
     location: "Port Harcourt",
-    review: "FixNear made it easy for my customers to find my electrical services online. I now have a professional website without knowing how to code.",
+    review: "Xenon made it easy for my customers to find my electrical services online. I now have a professional website without knowing how to code.",
     initials: "EO",
   },
   {
@@ -26,7 +26,7 @@ const reviews: Review[] = [
     name: "Tunde Bamidele",
     business: "Tunde Cleaning Services",
     location: "Abuja",
-    review: "I wanted something that would make my business look more established. FixNear delivered exactly that.",
+    review: "I wanted something that would make my business look more established. Xenon delivered exactly that.",
     initials: "TB",
   },
   {
@@ -109,13 +109,13 @@ export default function ReviewsMarquee() {
 
       <style>{`
         .reviews-track {
-          animation: fixnear-scroll 42s linear infinite !important;
+          animation: xenon-scroll 42s linear infinite !important;
           animation-play-state: running !important;
           will-change: transform;
           touch-action: pan-y;
         }
 
-        @keyframes fixnear-scroll {
+        @keyframes xenon-scroll {
           from {
             transform: translateX(0);
           }

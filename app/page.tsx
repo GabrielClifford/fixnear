@@ -46,8 +46,8 @@ const features: { icon: React.ElementType; title: string; text: string }[] = [
 ];
 
 const faqs = [
-  { q: 'Which kinds of business can use FixNear?', a: 'Service businesses, such as electricians, plumbers, mechanics, tailors and painters, are supported now. Restaurants, shops, real estate, professional services and wellness businesses are coming next.' },
-  { q: 'Do I need coding skills to use FixNear?', a: 'No. You fill in a simple form with your business details and photos, and FixNear builds your website for you.' },
+  { q: 'Which kinds of business can use Xenon?', a: 'Service businesses, such as electricians, plumbers, mechanics, tailors and painters, are supported now. Restaurants, shops, real estate, professional services and wellness businesses are coming next.' },
+  { q: 'Do I need coding skills to use Xenon?', a: 'No. You fill in a simple form with your business details and photos, and Xenon builds your website for you.' },
   { q: 'How long does it take to get my website live?', a: 'You can have it live in a few minutes: create your account, fill in your business details, add photos and publish.' },
   { q: 'Can I change my template later?', a: 'Yes. You can switch themes from your dashboard at any time, and your information and photos stay the same.' },
   { q: 'Is there a free plan?', a: 'While we launch, you can build and publish your website for free. Paid plans start when billing opens.' },
@@ -75,7 +75,7 @@ export default function Home() {
               Professional Websites for <span className="text-blue-500">Every Business</span>
             </h1>
             <p className="mt-6 max-w-lg text-sm leading-relaxed text-slate-300 md:text-base">
-              FixNear helps you create a professional website in minutes, with ready-made templates and
+              Xenon helps you create a professional website in minutes, with ready-made templates and
               everything you need to get online. No coding required.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -161,7 +161,7 @@ export default function Home() {
                 Built for <span className="text-blue-600">Every Type of Business</span>
               </h2>
               <p className="mt-3 max-w-xl text-sm text-slate-500">
-                Whether you&apos;re a local artisan or a growing brand, FixNear is built to get you online and
+                Whether you&apos;re a local artisan or a growing brand, Xenon is built to get you online and
                 help you stand out.
               </p>
             </div>
@@ -273,7 +273,7 @@ export default function Home() {
                 Get Your Website in <span className="text-blue-600">4 Easy Steps</span>
               </h2>
               <p className="mt-3 max-w-md text-sm text-slate-500">
-                From signup to launch, FixNear makes it simple to get your business online.
+                From signup to launch, Xenon makes it simple to get your business online.
               </p>
             </div>
             <p className="font-display text-sm italic text-slate-400">Takes just a few minutes</p>
@@ -359,7 +359,7 @@ export default function Home() {
       <section className="px-5 pb-16">
         <div className="mx-auto max-w-6xl rounded-3xl bg-gradient-to-r from-[#050b18] to-blue-900 px-6 py-12 text-center text-white">
           <h2 className="font-display text-2xl font-bold md:text-3xl">Ready to Build Your Website?</h2>
-          <p className="mt-2 text-sm text-slate-300">Be one of the first businesses to get online with FixNear.</p>
+          <p className="mt-2 text-sm text-slate-300">Be one of the first businesses to get online with Xenon.</p>
           <Link
             href="/signup"
             className="mt-6 inline-flex items-center gap-2 rounded-lg bg-blue-600 px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-blue-500"

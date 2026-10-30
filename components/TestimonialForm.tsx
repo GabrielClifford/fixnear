@@ -73,7 +73,7 @@ export default function TestimonialForm({ businessId, onSubmit }: Props) {
           </h2>
 
           <p className="mt-3 text-sm leading-6 text-slate-500">
-            Have you built your website with FixNear? We'd love to hear
+            Have you built your website with Xenon? We'd love to hear
             about your experience.
           </p>
         </div>
@@ -153,7 +153,7 @@ export default function TestimonialForm({ businessId, onSubmit }: Props) {
               rows={5}
               value={review}
               onChange={(e) => setReview(e.target.value)}
-              placeholder="Tell us how FixNear has helped your business..."
+              placeholder="Tell us how Xenon has helped your business..."
               className={`${inputClass} resize-none`}
             />
             <p className="mt-1 text-right text-xs text-slate-400">

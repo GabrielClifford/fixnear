@@ -20,7 +20,7 @@ export default function Realresults() {
 
           <p className="mt-4 max-w-sm text-sm leading-7 text-slate-600">
             Join business owners who are building their online presence
-            and growing their brands with FixNear.
+            and growing their brands with Xenon.
           </p>
 
           <div className="mt-8 grid grid-cols-3 gap-3 border-t border-slate-200 pt-6">
@@ -61,7 +61,7 @@ export default function Realresults() {
                 What business owners say
               </h3>
               <p className="mt-1 text-xs text-slate-500">
-                Experiences from the FixNear community
+                Experiences from the Xenon community
               </p>
             </div>
 

@@ -23,7 +23,7 @@ export default function Navbar() {
             F
           </span>
           <span className="leading-tight">
-            <span className="font-display block text-xl font-bold text-white">FixNear</span>
+            <span className="font-display block text-xl font-bold text-white">Xenon</span>
             <span className="hidden text-[10px] text-slate-400 sm:block">Build · Grow · Online</span>
           </span>
         </Link>

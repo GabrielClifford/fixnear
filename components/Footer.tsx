@@ -17,7 +17,7 @@ export default function Footer() {
             <span className="font-display flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 text-lg font-bold text-white">
               F
             </span>
-            <span className="font-display text-xl font-bold text-white">FixNear</span>
+            <span className="font-display text-xl font-bold text-white">Xenon</span>
           </Link>
           <p className="mt-2 text-xs">Build Your Website. Grow Your Business.</p>
         </div>
@@ -32,7 +32,7 @@ export default function Footer() {
         </nav>
       </div>
       <div className="border-t border-white/10 py-5 text-center text-xs">
-        © 2026 FixNear. All rights reserved.
+        © 2026 Xenon. All rights reserved.
       </div>
     </footer>
   );

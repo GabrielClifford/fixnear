@@ -76,9 +76,9 @@ export default function DashboardOverview({
           <p className="mt-1 text-slate-500">Your account is ready.</p>
         </div>
         <div className={`${card} p-6`}>
-          <h2 className="font-display text-lg font-semibold text-slate-900">FixNear is for artisans</h2>
+          <h2 className="font-display text-lg font-semibold text-slate-900">Xenon is for artisans</h2>
           <p className="mt-2 text-sm text-slate-600">
-            FixNear helps artisans build their own websites. To create one, sign up with an artisan account.
+            Xenon helps artisans build their own websites. To create one, sign up with an artisan account.
           </p>
           <Link
             href="/"

@@ -10,7 +10,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'FixNear | Find Trusted Artisans Near You',
+  title: 'Xenon | Find Trusted Artisans Near You',
   description:
     'Find electricians, plumbers, generator repairers, tailors, cobblers and phone repair technicians near you in Port Harcourt.',
 };
