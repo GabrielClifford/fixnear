@@ -7,6 +7,7 @@ import { Check, ChevronRight, Globe, Sparkles, Users } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import VisitsOverview from '@/components/VisitsOverview';
 import ChannelBreakdown from '@/components/ChannelBreakdown';
+import TestimonialForm from '@/components/TestimonialForm';
 
 export type Tab = 'home' | 'website' | 'customers' | 'channels' | 'settings';
 
@@ -249,6 +250,7 @@ export default function DashboardOverview({
 
           {/* Visits by channel */}
           {b && <ChannelBreakdown businessId={b.id} onViewAll={() => onNavigate('channels')} />}
+          {b && <TestimonialForm businessId={b.id} />}
 
           {/* Tips */}
           <div className="rounded-2xl bg-gradient-to-br from-slate-900 to-blue-900 p-5 text-white shadow-sm">

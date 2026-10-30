@@ -8,6 +8,9 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PricingPlans from '@/components/PricingPlans';
 import RecentSites from '@/components/RecentSites';
+import RealResults from '@/components/RealResults';
+import TestimonialForm from "@/components/TestimonialForm";
+<TestimonialForm />
 
 const industries: {
   label: string; text: string; icon: React.ElementType; tone: string; live?: boolean; note?: string;
@@ -294,8 +297,8 @@ export default function Home() {
       </section>
 
       {/* Real websites (hides itself until someone has published) */}
-      <Suspense fallback={null}>
-        <RecentSites />
+            <Suspense fallback={null}>
+        <RealResults />
       </Suspense>
 
       {/* Features */}
